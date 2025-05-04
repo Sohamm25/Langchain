@@ -1,24 +1,23 @@
-from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.llms import Ollama
-import streamlit as st
-import os
 from dotenv import load_dotenv
+import streamlit as st
 load_dotenv()
+import os
+#THIS IS BEING TRACKED BY LANGSMITH
 os.environ["LANGCHAIN_TRACING_V2"]="true"
-os.environ["LANGCHAIN_API_KEY"]=os.getenv("LANGCHAIN_API_KEY")
-prompt=ChatPromptTemplate.from_messages(
-    [
-        ("system","please respond to these questions in short"),
-        ("user","Question:{question}")
-    ]
+os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
+abc = ChatPromptTemplate.from_messages(
+[
+    ("system", "Hi please answer these questions."),
+    ("user", "Question:{question}")
+]
 )
 st.title("HI this chatbot(LOCAL LLM OLLAMA) is made by Soham, search the topic u want and u will get the answer!")
-input_text=st.text_input("Search!")
-#this is local llm
-llm=Ollama(model="llama2")
-output_parser=StrOutputParser()
-chain=prompt|llm|output_parser
-if input_text:
-    st.write(chain.invoke({"question":input_text}))
+input_by_user = st.text_input("Search!")
+llm = Ollama(model="llama2-uncensored")
+output_parser = StrOutputParser()
+chain = abc | llm | output_parser
+if input_by_user:
+    st.write(chain.invoke({"question": input_by_user}))
