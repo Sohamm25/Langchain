@@ -10,13 +10,13 @@ os.environ["LANGCHAIN_TRACING_V2"]="true"
 os.environ["LANGCHAIN_API_KEY"]=os.getenv("LANGCHAIN_API_KEY")
 prompt=ChatPromptTemplate.from_messages(
     [
-        ("system","You are a helpful assistant. Please response to the user queries"),
+        ("system","hi please answer to these questions in short"),
         ("user","Question:{question}")
     ]
 )
 import streamlit as st
-st.title('Langchain Demo With OPENAI API')
-input_text=st.text_input("Search the topic u want")
+st.title("HI this chatbot(openai) is made by Soham, search the topic u want and u will get the answer!")
+input_text=st.text_input("Search!")
 #down below will be changed when using llama2
 llm=ChatOpenAI(model="gpt-3.5-turbo")
 output_parser=StrOutputParser()
